@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import useBreeds from "./useBreeds";
 import Pet from "./Pet";
 
-const ANIMALS = ["Bird", "Cat", "Dog", "Rabbit", "Reptile"];
+const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
     const [location, setLocation] = useState(String());
     const [animal, setAnimal] = useState(String());
     const [breed, setBreed] = useState(String());
-    const breeds = ["Poodles", "Bichon"];
     const [pets, setPets] = useState([]);
+    const [breeds, status] = useBreeds(animal);
 
     useEffect(() => {
         requestPets().then(() => { console.info("Pets have been loaded."); });
@@ -41,7 +41,7 @@ const SearchParams = () => {
                     }}
                 >
                     <option />
-                    {ANIMALS.map(animal => <option key={animal} value={animal}>{animal}</option>)}
+                    {ANIMALS.map(animal => <option key={animal} value={animal}>{animal.charAt(0).toUpperCase() + animal.slice(1)}</option>)}
                 </select>
                 <label htmlFor="breed">Breed:</label>
                 <select
