@@ -21,24 +21,30 @@ const SearchParams = () => {
         setPets(pets);
     }
 
+    const handle = {
+        submit($event) {
+            $event.preventDefault();
+            requestPets().then(() => { console.info("Pets have been loaded."); });
+        },
+        selectAnimal($event) {
+            setAnimal($event.target.value);
+            setBreed(String());
+        },
+        selectBreed($event) { setBreed($event.target.value); }
+    }
+
     return (
         <div className="search-params">
-            <form action="">
+            <form onSubmit= { handle.submit }>
                 <label htmlFor="location">Location:</label>
                 <input type="text" id="location" placeholder="Location" value={location} onChange={ ({ target }) => setLocation(target.value) } />
                 <button>Submit</button>
                 <label htmlFor="animal">Animal:</label>
                 <select
                     id="animal"
-                    value={animal}
-                    onChange={ ({ target }) => {
-                        setAnimal(target.value);
-                        setBreed(String());
-                    }}>
-                    onBlur={ ({ target }) => {
-                        setAnimal(target.value);
-                        setBreed(String());
-                    }}
+                    value={ animal }
+                    onChange={ handle.selectAnimal }
+                    onBlur={ handle.selectAnimal }
                 >
                     <option />
                     {ANIMALS.map(animal => <option key={animal} value={animal}>{animal.charAt(0).toUpperCase() + animal.slice(1)}</option>)}
@@ -46,19 +52,15 @@ const SearchParams = () => {
                 <label htmlFor="breed">Breed:</label>
                 <select
                     id="breed"
-                    value={breed}
-                    onChange={ ({ target }) => {
-                        setBreed(target.value);
-                    }}>
-                    onBlur={ ({ target }) => {
-                        setBreed(target.value);
-                    }}
-                    >
+                    value={ breed }
+                    onChange={ handle.selectBreed }
+                    onBlur={ handle.selectBreed }
+                >
                     <option />
-                    {breeds.map(breed => <option key={breed} value={breed}>{breed}</option>)}
+                    { breeds.map(breed => <option key={ breed } value={ breed }>{ breed }</option>) }
                 </select>
             </form>
-            { pets.map(({ id, name, animal, breed }) => <Pet key={id} name={name} animal={animal} breed={breed} />) }
+            { pets.map(({ id, name, animal, breed }) => <Pet key={ id } name={ name } animal={ animal } breed={ breed } />) }
         </div>
     );
 }
