@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useBreeds from "./useBreeds";
-import Pet from "./Pet";
+import Results   from "./Results";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
@@ -55,12 +55,13 @@ const SearchParams = () => {
                     value={ breed }
                     onChange={ handle.selectBreed }
                     onBlur={ handle.selectBreed }
+                    disabled={ !animal }
                 >
                     <option />
                     { breeds.map(breed => <option key={ breed } value={ breed }>{ breed }</option>) }
                 </select>
             </form>
-            { pets.map(({ id, name, animal, breed }) => <Pet key={ id } name={ name } animal={ animal } breed={ breed } />) }
+            <Results pets={ pets } />
         </div>
     );
 }
