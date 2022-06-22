@@ -7,7 +7,6 @@ export default function useBreeds(animal) {
     const [status, setStatus] = useState("Unloaded");
 
     useEffect(() => {
-        console.log(animal);
         if (!animal) { setBreeds([]) }
         else if (localCache[animal]) { setBreeds(localCache[animal]); }
         else { requestBreeds().then(() => { console.info("Breeds have been loaded."); }); }
