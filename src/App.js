@@ -4,6 +4,7 @@ import { StrictMode } from "react";
 
 import SearchParams from "./SearchParams";
 import Details from "./Details";
+import WrappedDetails from "./Details";
 
 const App = () =>
     <StrictMode>
@@ -12,7 +13,7 @@ const App = () =>
                 <Link to="/">Adopt Me!</Link>
             </header>
             <Routes>
-                <Route path="/details/:id" element={ <Details /> } />
+                <Route path="/details/:id" element={ <WrappedDetails /> } />
                 <Route path="/" element={ <SearchParams /> } />
             </Routes>
         </BrowserRouter>
