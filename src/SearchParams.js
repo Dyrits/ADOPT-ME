@@ -62,6 +62,14 @@ const SearchParams = () => {
                     <option />
                     { breeds.map(breed => <option key={ breed } value={ breed }>{ breed }</option>) }
                 </select>
+                <label htmlFor="theme">Theme:
+                    <select value={ theme } onChange={ ({ target }) => setTheme(target.value) } onBlur={ ({ target }) => setTheme(target.value) }>
+                        <option value="peru">Peru</option>
+                        <option value="darkblue">Dark Blue</option>
+                        <option value="chartreuse">Chartreuse</option>
+                        <option value="mediumorchid">Medium Orchid</option>
+                    </select>
+                </label>
                 <button style={{ backgroundColor: theme }}>Submit</button>
             </form>
             <Pets pets={ pets } />
