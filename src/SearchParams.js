@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
 import useBreeds from "./useBreeds";
-import Pets   from "./Pets";
+import Pets from "./Pets";
+import ThemeContext from "./ThemeContext";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
@@ -10,6 +12,7 @@ const SearchParams = () => {
     const [breed, setBreed] = useState(String());
     const [pets, setPets] = useState([]);
     const [breeds, status] = useBreeds(animal);
+    const [theme, setTheme] = useContext(ThemeContext);
 
     useEffect(() => {
         requestPets().then(() => { console.info("Pets have been loaded."); });
@@ -38,7 +41,6 @@ const SearchParams = () => {
             <form onSubmit= { handle.submit }>
                 <label htmlFor="location">Location:</label>
                 <input type="text" id="location" placeholder="Location" value={location} onChange={ ({ target }) => setLocation(target.value) } />
-                <button>Submit</button>
                 <label htmlFor="animal">Animal:</label>
                 <select
                     id="animal"
@@ -60,6 +62,7 @@ const SearchParams = () => {
                     <option />
                     { breeds.map(breed => <option key={ breed } value={ breed }>{ breed }</option>) }
                 </select>
+                <button style={{ backgroundColor: theme }}>Submit</button>
             </form>
             <Pets pets={ pets } />
         </div>
